@@ -311,6 +311,13 @@ export async function getAccountBalance(payload: unknown): Promise<BalanceResult
   try {
     const { accountId } = BalanceQuerySchema.parse(payload);
     
+    // Log de auditoria (em produção: buscar saldo real no banco)
+    console.log('[getAccountBalance] Consulta de saldo', {
+      userId: session.userId,
+      accountId,
+      timestamp: new Date().toISOString(),
+    });
+    
     // MOCK: Retorna saldo fictício
     return {
       success: true,
